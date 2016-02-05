@@ -3,12 +3,6 @@ var path = require('path');
 var _ = require('underscore');
 var request = require('request');
 
-/*
- * You will need to reuse the same paths many times over in the course of this sprint.
- * Consider using the `paths` object below to store frequently used file paths. This way,
- * if you move any files, you'll only need to change your code in one place! Feel free to
- * customize it in any way you wish.
- */
 
 exports.paths = {
   siteAssets: path.join(__dirname, '../web/public'),
@@ -22,12 +16,6 @@ exports.initialize = function(pathsObj){
     exports.paths[type] = path;
   });
 };
-
-// The following function names are provided to you to suggest how you might
-// modularize your code. Keep it clean!
-
-
-
 
 exports.readListOfUrls = function(callback){
   var sites;
@@ -56,8 +44,8 @@ exports.isUrlInList = function(userInput, callback){
 };
 
 exports.addUrlToList = function(userInput, callback){
-    var newSite = '\n' + userInput;
-    fs.appendFile(exports.paths.list, newSite, function(err){
+    //var newSite = ;
+    fs.appendFile(exports.paths.list, '\n' + userInput, function(err){
         if (err){
             throw err;
         }
@@ -86,7 +74,6 @@ exports.isUrlArchived = function(userInput, callback){
 };
 
 exports.downloadUrls = function(listOfUrls){
-  //exports.readListOfUrls(function(sites){
     _.each(listOfUrls, function(url){
       exports.isUrlArchived(url, function(truthy){
         if (!truthy){
@@ -100,22 +87,3 @@ exports.downloadUrls = function(listOfUrls){
       })
     });
 };
-
-
-
-
-
-
-            // if (!error && response.statusCode == 200){
-            //   
-            //   fs.writeFile(newPath, body, function(err){
-            //     if (err){
-            //       throw err
-            //     }
-            //     console.log('success!');
-            //   });
-          //   }
-          // ).pipe(request.put(archivedSites));
-          // retrieve from website
-          // store static website in sites
-
