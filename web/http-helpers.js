@@ -10,10 +10,43 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
+exports.sendResponse = function(response, obj, status){
+    status = status || 200;
+    response.writeHead(status, headers);
+    response.end(obj);
+};
+
+exports.collectData = function(request, callback){
+    var data = '';
+    request.on('data', function(chunk){
+        data += chunk;
+    });
+    request.on('end', function(){
+        callback(data);
+    });
+};
+
+exports.send404 = function(response){
+    exports.sendResponse(response, '404: Page Not Found', 404);
+};
+
 exports.serveAssets = function(res, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
+    fs.readFile(archive.paths.siteAssets + asset, {encoding: 'utf-8'},function(error, content){
+        if (error){
+            fs.readFile(archive.paths.archivedSites + asset, {encoding: 'utf-8'}, function(error, content){
+                if (error){
+                    callback ? callback() : exports.send404(res);
+                }else{
+                  exports.sendResponse(res, content);
+                }
+            });
+        }else{
+            exports.sendResponse(res, content);
+        }
+    });
 };
 
 

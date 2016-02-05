@@ -9,7 +9,19 @@ initialize();
 
 var port = 8080;
 var ip = "127.0.0.1";
+
 var server = http.createServer(handler.handleRequest);
+
+	// var parts = urlParse.parse(request.url);
+
+	// if ()
+	// response.writeHead(200, {'Content-Type': 'text/html'})
+	// response.end()
+	// console.log('hi')
+	// console.log(request);
+	// console.log(response);
+
+	
 
 if (module.parent) {
   module.exports = server;
@@ -17,6 +29,7 @@ if (module.parent) {
   server.listen(port, ip);
   console.log("Listening on http://" + ip + ":" + port);
 }
+
 
 
 /*
