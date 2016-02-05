@@ -19,7 +19,6 @@ var actions = {
     utils.collectData(request, function(data){
       var siteUrl = data.substring(4);
      
-      
       archive.isUrlInList(siteUrl, function(isThere){
         if (!isThere){
           archive.addUrlToList(siteUrl);
